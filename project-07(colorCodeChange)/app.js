@@ -21,42 +21,65 @@ function main(){
     const color_copy = document.getElementById('color_copy')
 
     change_button.addEventListener('click', function(){
-        const bgColor = generateRGBColor()
+        const colorGen = generateColorDecimal()
+
+        const bgColor = generateHexColor(colorGen)
+        const bgColorRGB = generateRGBColor(colorGen)
         root.style.backgroundColor = bgColor
         root.style.transition = '1s'
-        color_input.value = bgColor
+        color_input.value = bgColor.substring(1).toLocaleUpperCase()
+        color_input_rgb.value = bgColorRGB
     })
 
     color_copy.addEventListener('click', function(){
-        window.navigator.clipboard.writeText(color_input.value)
+        window.navigator.clipboard.writeText(`#${color_input.value}`)
         
         if(divToast != null){
             divToast.remove();
             divToast = null;
         }
         
-        generateToastmessage(`${color_input.value} Copied`)
+        generateToastmessage(`#${color_input.value} Copied`)
         
     });
 
     color_input.addEventListener('keyup', function(e){
         const color = e.target.value
         if(color && isValidHex(color)){
-            root.style.backgroundColor = color
+            root.style.backgroundColor = `#${color}`
             root.style.transition = '1s'
         }
-    });
+        color_input.value = color.toLocaleUpperCase()
+    }); 
 
 }
 
-// Step 02
-function generateRGBColor(){
-
+function generateColorDecimal(){
     const red = Math.floor(Math.random() * 255);
     const green = Math.floor(Math.random() * 255);
     const blue = Math.floor(Math.random() * 255);
 
-    return `#${red.toString(16)}${green.toString(16)}${blue.toString(16)}`
+    return {
+        red,
+        green,
+        blue
+    }
+}
+
+// Step 02
+function generateHexColor({red, green, blue}){
+
+    const getTwoCode = (value) => {
+        const hex = value.toString(16)
+        return hex.length === 1 ? `0${ hex}` : hex
+    }
+
+    return `#${getTwoCode(red)}${getTwoCode(green)}${getTwoCode(blue)}`
+}
+
+function generateRGBColor({red, green, blue}){
+    
+    return `rgb(${red},${green},${blue})`
 }
 
 // Step 03 - Collect all necessary references
@@ -88,10 +111,10 @@ function generateToastmessage(msg){
  */
 function isValidHex(color){
 
-    if(color.length != 7) return false;
-    if(color[0] != '#') return false;
+    if(color.length != 6) return false;
+    // if(color[0] != '#') return false;
 
-    color = color.substring(1)
+    // color = color.substring(1)
     return /^[0-9A-Fa-f]{6}$/i.test(color);
 }
 

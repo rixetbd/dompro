@@ -24,28 +24,29 @@ function main(){
         const bgColor = generateRGBColor()
         root.style.backgroundColor = bgColor
         root.style.transition = '1s'
-        color_input.value = bgColor
+        color_input.value = bgColor.substring(1).toLocaleUpperCase()
     })
 
     color_copy.addEventListener('click', function(){
-        window.navigator.clipboard.writeText(color_input.value)
+        window.navigator.clipboard.writeText(`#${color_input.value}`)
         
         if(divToast != null){
             divToast.remove();
             divToast = null;
         }
         
-        generateToastmessage(`${color_input.value} Copied`)
+        generateToastmessage(`#${color_input.value} Copied`)
         
     });
 
     color_input.addEventListener('keyup', function(e){
         const color = e.target.value
         if(color && isValidHex(color)){
-            root.style.backgroundColor = color
+            root.style.backgroundColor = `#${color}`
             root.style.transition = '1s'
         }
-    });
+        color_input.value = color.toLocaleUpperCase()
+    }); 
 
 }
 
@@ -88,10 +89,10 @@ function generateToastmessage(msg){
  */
 function isValidHex(color){
 
-    if(color.length != 7) return false;
-    if(color[0] != '#') return false;
+    if(color.length != 6) return false;
+    // if(color[0] != '#') return false;
 
-    color = color.substring(1)
+    // color = color.substring(1)
     return /^[0-9A-Fa-f]{6}$/i.test(color);
 }
 

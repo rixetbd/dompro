@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project 07 - ( Color Code Text Transform )</title>
+
+    <link rel="stylesheet" href="../global-packages/bootstrap.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div class="container-fluid" id="root">
+        <div class="container">
+            <div class="row justify-content-center align-items-center vh-100">
+                <div class="text-center col-md-8">
+                    <h1 class="text-uppercase">Change the banckground color by clicking a butting</h1>
+                    <h6>Hex Code</h6>
+                    <div class="my-3 d-flex input_group">
+                        <div class="input_icon col">#</div>
+                        <input type="text" class="me-1 form-control form-control-sm" id="color_input" value="323949">
+                        <button id="color_copy" class="btn btn-sm btn-light px-5">Copy</button>
+                    </div>
+                    <h6>RGB Code</h6>
+                    <div class="my-3 d-flex">
+                        <input type="text" class="me-1 form-control form-control-sm" id="color_input_rgb" value="">
+                    <button id="color_copy" class="btn btn-sm btn-light px-5">Copy</button>
+                    </div>
+                    <button id="change_btn" class="btn btn-light">Change Color</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <script src="../global-packages/bootstrap.bundle.min.js"></script>
+    <script src="app.js"></script>
+</body>
+
+</html>
